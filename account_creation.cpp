@@ -20,14 +20,26 @@ std::string getName()
 	;
 }
 
+//function to create new account
+void createNewAccount() 
+{
+	// ask for:
+	// - ID
+	// - name
+	// - DoB
+	;
+}
+
 class baseAccount
 {	
 	public: 
 		baseAccount() {
-			//create:
-			// - new ID
-			// - ask for name
-			// - ask for DoB
+			//input:
+			// - ID
+			// - name
+			// - DoB
+			// - bank balance
+			// - transaction history
 			// - ...
 			//
 			;
@@ -47,5 +59,5 @@ class baseAccount
 	
 };
 
-//class of regular account that inherits from baseAccount
+
 //planning on having administrator accounts that also inherit from baseAccount.
