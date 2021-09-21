@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="account_creation.cpp" />
     <ClCompile Include="DOFE Mock Bank Software.cpp" />
     <ClCompile Include="io.cpp" />
     <ClCompile Include="menu.cpp" />
@@ -158,6 +159,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="account_creation.h" />
     <ClInclude Include="io.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="pch.h" />

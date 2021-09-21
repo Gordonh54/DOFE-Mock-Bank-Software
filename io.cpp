@@ -160,6 +160,29 @@ int charToInt(char number)
 } 
 //should find a better solution on Google for this, but since I already made it there's no shame in using it now
 
+std::string intToString(int intValue) 
+{
+	std::string intString = std::to_string(intValue);
+	return intString;
+	//https://www.tutorialspoint.com/How-to-convert-an-int-to-string-in-Cplusplus 
+}//converting an integer to string
+
+std::string doubleToString(double doubleValue) 
+{
+	std::string doubleString = std::to_string(doubleValue);
+	return doubleString;
+}//converting a double to string
+
+//some information on string filtering: 
+//a library can be found here: https://stackoverflow.com/questions/3941548/string-filtering-on-c
+
+std::string filterString(std::string prompt, int numberOfSpaces, bool specialCharactersAllowed, bool numbersAllowed) 
+{
+	//ask for string
+	//go through string and pick up on number of spaces, any special characters, and numbers
+	// if number of spaces, special characters, or numbers rules are violated, go back to beginning an ask for string again. 
+	//otherwise return the string
+}
 
 int intFromRange_Inclusive(int min, int max, std::string prompt)
 {

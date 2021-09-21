@@ -27,6 +27,9 @@
     <ClCompile Include="menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="account_creation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="account_creation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
