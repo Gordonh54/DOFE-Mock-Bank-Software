@@ -4,13 +4,17 @@
 #include "pch.h"
 #include "io.h"
 #include "menu.h"
+#include "numbers.h"
+#include "account_creation.h"
+#include "accounts.h"
 
 #include <iostream>
 #include <string>
 
 int main()
 {
-    mainMenu();
+    createNewAccount();
+    //mainMenu();
 }
 
 

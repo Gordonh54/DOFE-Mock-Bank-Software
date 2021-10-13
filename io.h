@@ -19,8 +19,11 @@ std::string intToString(int intValue);
 
 std::string doubleToString(double doubleValue);
 
+std::string filterString(std::string prompt, int numberOfSpaces, std::string allowedCharacters);
+
 int intFromRange_Inclusive(int min, int max, std::string prompt);
 
+bool hasUndesiredCharacter(std::string string, std::string allowedCharacters);
 
 #endif
 

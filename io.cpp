@@ -122,7 +122,7 @@ std::string getInput(std::string prompt)
 {
 	std::string userInput{};
 	std::cout << prompt << '\n';
-	std::cin >> userInput;
+	std::getline(std::cin >> std::ws, userInput);
 	return userInput;
 }
 
@@ -176,14 +176,42 @@ std::string doubleToString(double doubleValue)
 //some information on string filtering: 
 //a library can be found here: https://stackoverflow.com/questions/3941548/string-filtering-on-c
 
-std::string filterString(std::string prompt, int numberOfSpaces, bool specialCharactersAllowed, bool numbersAllowed) 
+std::string filterString(std::string prompt, int numberOfSpaces, std::string allowedCharacters)
 {
+	std::string unfilteredString{};
+	while (true) 
+	{
+		int spacesUsed{ 0 };
+		unfilteredString =  stringInput(prompt);
+		for (unsigned int i = 0; i < unfilteredString.size(); i++) 
+		{
+			if (unfilteredString[i] == ' ')
+				spacesUsed++;
+		}
+
+		if (hasUndesiredCharacter(unfilteredString, allowedCharacters) || spacesUsed > numberOfSpaces)
+		{
+			std::cout << "Your input contains an invalid character. Please try again.\n";
+		}
+		else
+			break;//exit loop
+
+	}
 	//ask for string
 	//go through string and pick up on number of spaces, any special characters, and numbers
 	// if number of spaces, special characters, or numbers rules are violated, go back to beginning an ask for string again. 
 	//otherwise return the string
+	return unfilteredString;
 }
 
+bool hasUndesiredCharacter(std::string string, std::string allowedCharacters) 
+{
+	if (string.find_first_not_of(allowedCharacters) != std::string::npos)
+		return true;
+	else
+		return false;
+} //takes in allowed list of characters and check to see if a unusuable character is included, if so it will return true. 
+//Source: https://stackoverflow.com/questions/6605282/how-can-i-check-if-a-string-has-special-characters-in-c-effectively
 int intFromRange_Inclusive(int min, int max, std::string prompt)
 {
 	int unfixedInt{};
