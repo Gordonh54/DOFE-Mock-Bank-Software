@@ -7,14 +7,24 @@
 #include "numbers.h"
 #include "account_creation.h"
 #include "accounts.h"
+#include "file_handling.h"
 
 #include <iostream>
 #include <string>
 
 int main()
 {
-    createNewAccount();
+    //createNewAccount();
     //mainMenu();
+    createNewFile("Jeff", "12347", "abd");
+    if (lookupFile("12345"))
+        std::cout << "found file\n";
+    else
+        std::cout << "file not found\n";
+    if (lookupFile("23456"))
+        std::cout << "found file\n";
+    else
+        std::cout << "file not found\n";
 }
 
 

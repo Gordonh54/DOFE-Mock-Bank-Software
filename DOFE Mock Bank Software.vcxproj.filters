@@ -33,7 +33,10 @@
     <ClCompile Include="accounts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rng.cpp">
+    <ClCompile Include="numbers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="file_handling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +56,10 @@
     <ClInclude Include="accounts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rng.h">
+    <ClInclude Include="numbers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="file_handling.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

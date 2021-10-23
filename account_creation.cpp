@@ -2,11 +2,13 @@
 #include "io.h"
 #include "numbers.h"
 #include "account_creation.h"
+#include "file_handling.h"
 
 namespace charSets
 {
 	std::string nameChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "; //all characters allowed in names. Should one include periods and dashes?
 	int spacesAllowedInNames = 5; //set it to 5 for now, currently unsure
+	std::string numbers = "1234567890";
 }; 
 
 std::string createRandomId() 
@@ -33,18 +35,11 @@ std::string createRandomId()
 
 		generatedId = intToString(idInt);
 
-		if (checkMatchingId(generatedId))
+		if (!lookupFile(generatedId))//attempt to open a file with this id. If it cannot find a file with this id, then it is a unique id.
 			break;//if found no match in database, break from loop as this is a new ID
 	} 
 
-
-	return generatedId;//create random numbers and letters? will return as a string.
-}
-
-bool checkMatchingId(std::string id)
-{
-	;//checks accross files to find any matching ids 
-	return true;
+	return generatedId;//Should this id create random numbers and letters? will return as a string.
 }
 
 //function to create new account

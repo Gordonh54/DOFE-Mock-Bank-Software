@@ -12,6 +12,7 @@
 #include <math.h>
 #include <random>
 
+#include <fstream>
 #include <stdlib.h>
 #include <time.h>
 // add headers that you want to pre-compile here
