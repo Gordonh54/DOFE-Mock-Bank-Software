@@ -14,17 +14,8 @@
 
 int main()
 {
-    //createNewAccount();
-    //mainMenu();
-    createNewFile("Jeff", "12347", "abd");
-    if (lookupFile("12345"))
-        std::cout << "found file\n";
-    else
-        std::cout << "file not found\n";
-    if (lookupFile("23456"))
-        std::cout << "found file\n";
-    else
-        std::cout << "file not found\n";
+    createNewAccount();
+    //mainMenu
 }
 
 

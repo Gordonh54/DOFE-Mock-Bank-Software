@@ -27,30 +27,9 @@ int intInput(std::string prompt)
 			std::cout << "Invalid Input \n";
 		else
 		{
-			bool invalidCharUsed{ false }; // false by default
-
-			//for loop for decoding string input
-			for (unsigned int i = 0; i < currentInput.size(); i++)
-			{
-				if (i > 0)
-					userInput *= 10; //multiply by 10 to add upon the next digit.
-				if (charToInt(currentInput[i]) == -1) // if returned -1, being the error number
-				{
-					invalidCharUsed = true;
-					break;
-				}
-				else
-					userInput += charToInt(currentInput[i]); //begin collecting numbers
-			}
-
-			//dealing with errors
-			if (invalidCharUsed)
-			{
-				std::cout << "Invalid character used!\n";
-			}
-			else
-				break; //exit the loop as no errors were detected.
-
+			userInput = stringToInt(currentInput);
+			if (userInput != -1)
+				break;
 		}
 	}
 	return userInput;
@@ -176,6 +155,25 @@ std::string doubleToString(double doubleValue)
 //some information on string filtering: 
 //a library can be found here: https://stackoverflow.com/questions/3941548/string-filtering-on-c
 
+int stringToInt(std::string integer) 
+{
+	int newInt{ 0 };
+	//for loop for decoding string input
+	for (unsigned int i = 0; i < integer.size(); i++)
+	{
+		if (i > 0)
+			newInt *= 10; //multiply by 10 to add upon the next digit.
+		if (charToInt(integer[i]) == -1) // if returned -1, being the error number
+		{
+			std::cout << "Invalid character used!\n";
+			return -1;
+		}
+		else
+			newInt += charToInt(integer[i]); //begin collecting numbers
+	}
+	return newInt;
+}
+
 std::string filterString(std::string prompt, int numberOfSpaces, std::string allowedCharacters)
 {
 	std::string unfilteredString{};
@@ -206,12 +204,35 @@ std::string filterString(std::string prompt, int numberOfSpaces, std::string all
 
 bool hasUndesiredCharacter(std::string string, std::string allowedCharacters) 
 {
-	if (string.find_first_not_of(allowedCharacters) != std::string::npos)
+	if (string.find_first_not_of(allowedCharacters) != std::string::npos)//will return true if not found
 		return true;
 	else
 		return false;
 } //takes in allowed list of characters and check to see if a unusuable character is included, if so it will return true. 
 //Source: https://stackoverflow.com/questions/6605282/how-can-i-check-if-a-string-has-special-characters-in-c-effectively
+
+bool hasCharacter(char character, std::string allowedCharacters) //to check individual characters since the filterString function is too non-specific
+{
+	for (unsigned int i = 0; i < allowedCharacters.size(); i++)
+	{
+		if (character == allowedCharacters[i])
+			return true;
+	}
+	return false;
+}
+
+std::string combineChars(char a, char b) 
+{
+	char firstChar = a;
+	char secondChar = b;
+	std::string combinedChars{ "" };
+	combinedChars += firstChar;
+	combinedChars += secondChar;
+	return combinedChars;
+}
+
+
+
 int intFromRange_Inclusive(int min, int max, std::string prompt)
 {
 	int unfixedInt{};

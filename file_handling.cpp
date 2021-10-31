@@ -10,7 +10,7 @@ void createNewFile(std::string name, std::string id, std::string dateOfBirth) //
 	//std::ios_base::app is for appending file information
 	if (newFile.is_open())
 	{
-		newFile << name << '\n' << dateOfBirth;
+		newFile << id << '\n' << name << '\n' << dateOfBirth;
 		newFile.close();
 		if (newFile.is_open())
 			std::cout << "Stream could not close!\n";
@@ -21,7 +21,7 @@ void createNewFile(std::string name, std::string id, std::string dateOfBirth) //
 
 std::string processFileInfo();
 
-bool lookupFile(std::string id) 
+bool lookupFile(std::string id)
 {
 	std::fstream file;
 	file.open("accounts/" + id + ".txt", std::ios_base::in);
@@ -32,10 +32,11 @@ bool lookupFile(std::string id)
 			std::cout << "Stream could not close!\n";
 		return true;
 	}
-	else 
+	else
 	{
 		return false;
 	}
+}
 
 	/*
 	File Format:
@@ -46,6 +47,7 @@ bool lookupFile(std::string id)
 	- Bank Balance
 	- Transaction History (which can be appended)
 	*/
+
 
 
 

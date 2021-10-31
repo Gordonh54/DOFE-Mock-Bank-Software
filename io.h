@@ -19,12 +19,17 @@ std::string intToString(int intValue);
 
 std::string doubleToString(double doubleValue);
 
+int stringToInt(std::string integer);
+
 std::string filterString(std::string prompt, int numberOfSpaces, std::string allowedCharacters);
 
 int intFromRange_Inclusive(int min, int max, std::string prompt);
 
 bool hasUndesiredCharacter(std::string string, std::string allowedCharacters);
 
+bool hasCharacter(char character, std::string allowedCharacters);
+
+std::string combineChars(char a, char b);
 #endif
 
 
