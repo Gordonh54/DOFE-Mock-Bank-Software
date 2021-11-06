@@ -10,7 +10,7 @@ void createNewFile(std::string name, std::string id, std::string dateOfBirth) //
 	//std::ios_base::app is for appending file information
 	if (newFile.is_open())
 	{
-		newFile << id << '\n' << name << '\n' << dateOfBirth;
+		newFile << id << '\n' << name << '\n' << dateOfBirth << '\n' << "0\n" << "EMPTY";
 		newFile.close();
 		if (newFile.is_open())
 			std::cout << "Stream could not close!\n";
@@ -19,12 +19,10 @@ void createNewFile(std::string name, std::string id, std::string dateOfBirth) //
 		std::cout << "File could not be opened!";
 }
 
-std::string processFileInfo();
-
 bool lookupFile(std::string id)
 {
 	std::fstream file;
-	file.open("accounts/" + id + ".txt", std::ios_base::in);
+	file.open(fileName(id), std::ios_base::in);
 	if (file.is_open())
 	{
 		file.close();
@@ -36,6 +34,11 @@ bool lookupFile(std::string id)
 	{
 		return false;
 	}
+}
+
+std::string fileName(std::string id)
+{
+	return ("accounts/" + id + ".txt");
 }
 
 	/*

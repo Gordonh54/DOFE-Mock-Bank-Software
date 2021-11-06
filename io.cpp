@@ -39,54 +39,16 @@ int intInput(std::string prompt)
 double doubleInput(std::string prompt)
 {
 	double userInput{}; //initialize user input variable
-	while (true) {
+	while (true) 
+	{
 		userInput = 0.0; //reset number just in case of error
 		std::string currentInput{ getInput(prompt) };
-		if (currentInput.size() < 1) // if nothing in the string give error
+		userInput = stringToDouble(currentInput);
+		if (userInput != -1) 
 		{
-			std::cout << "Invalid Input \n"; //I remember trying to input nothing but it appears that you can't. This section may or may not be irrelevant. 
+			break; // if valid number then we can exit loop
 		}
-		else
-		{
-			int decimalsUsed{ 0 }; //initialize variables
-			bool invalidCharUsed{ false };
-			unsigned int positionOfDecimal{ currentInput.size() };//set it to the length of the string by default. 
-
-			//using an unsigned int because a decimal position will be positive or zero by default, and will likely not get too big.
-			for (unsigned int i = 0; i < currentInput.size(); i++) 
-			//Likewise, i will be unsigned for the < operator
-			{
-				if (currentInput[i] == '.') {
-					positionOfDecimal = i + 1;
-					decimalsUsed++;
-					continue;
-				}
-				if (i > 0)
-					userInput *= 10; // multiply by 10 to add the next number as it is still above the decimal
-
-				if (charToInt(currentInput[i]) == -1) // if returned -1, being the error number
-				{
-					invalidCharUsed = true;
-					break;
-				}
-					
-				else
-					userInput += charToInt(currentInput[i]); //begin collecting numbers
-			}
-			if (decimalsUsed > 1) 
-			{
-				std::cout << "Too many decimals used! \n";//error message
-			}// continue through the loop
-			else if (invalidCharUsed)
-			{
-				std::cout << "Invalid character used! \n";
-			}// continue through the loop
-			else {
-				//at the end divide the number according to the decimal
-				userInput *= 1 / pow(10, (currentInput.size() - positionOfDecimal));
-				break; //finish creating numbers and exit the loop, finally returning the number
-			}
-		}
+		
 	}
 	return userInput;
 }
@@ -129,7 +91,7 @@ int charToInt(char number)
 		return 9;
 	else
 	{
-		std::cout << "Invalid Input! \n"; //add more rejection code later.
+		//add more rejection code later.
 		//system of rejection is as follows:
 		//Returns -1 to caller. As -1 will not be used for pretty much any form of input, it can be used.
 		//The above can then read the output and then make a decision based on such. 
@@ -172,6 +134,51 @@ int stringToInt(std::string integer)
 			newInt += charToInt(integer[i]); //begin collecting numbers
 	}
 	return newInt;
+}
+
+double stringToDouble(std::string numberString) 
+{
+	double finalNumber{ 0.0 };
+	int decimalsUsed{ 0 }; //initialize variables
+	bool invalidCharUsed{ false };
+	unsigned int positionOfDecimal{ numberString.size() };//set it to the length of the string by default. 
+
+	//using an unsigned int because a decimal position will be positive or zero by default, and will likely not get too big.
+	for (unsigned int i = 0; i < numberString.size(); i++)
+		//Likewise, i will be unsigned for the < operator
+	{
+		if (numberString[i] == '.') {
+			positionOfDecimal = i + 1;
+			decimalsUsed++;
+			continue;
+		}
+		if (i > 0)
+			finalNumber *= 10; // multiply by 10 to add the next number as it is still above the decimal
+
+		if (charToInt(numberString[i]) == -1) // if returned -1, being the error number
+		{
+			invalidCharUsed = true;
+			break;
+		}
+
+		else
+			finalNumber += charToInt(numberString[i]); //begin collecting numbers
+	}
+	if (decimalsUsed > 1)
+	{
+		std::cout << "Too many decimals used! \n";//error message
+		return -1;
+	}
+	else if (invalidCharUsed)
+	{
+		std::cout << "Invalid character used! \n";
+		return -1; //error number
+	}
+	else {
+		//at the end divide the number according to the decimal
+		finalNumber *= 1 / pow(10, (numberString.size() - positionOfDecimal));
+		return finalNumber;
+	}
 }
 
 std::string filterString(std::string prompt, int numberOfSpaces, std::string allowedCharacters)

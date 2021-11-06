@@ -6,4 +6,7 @@
 void createNewFile(std::string name, std::string id, std::string dateOfBirth);
 
 bool lookupFile(std::string id);
+
+std::string fileName(std::string id);
+
 #endif

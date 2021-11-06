@@ -21,6 +21,8 @@ std::string doubleToString(double doubleValue);
 
 int stringToInt(std::string integer);
 
+double stringToDouble(std::string numberString);
+
 std::string filterString(std::string prompt, int numberOfSpaces, std::string allowedCharacters);
 
 int intFromRange_Inclusive(int min, int max, std::string prompt);
