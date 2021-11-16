@@ -31,6 +31,12 @@ void baseAccount::displayAccountInfo()
 {
 	std::cout << userName << "\nID: " << userId << "\nDate of Birth: " << dateOfBirth << '\n';
 } //display basic account info
+
+std::string baseAccount::giveUserId()
+{
+	return userId;
+}
+
 void baseAccount::displayBankBalance()
 {
 	std::cout << "Current Balance: " << accountBalance << '\n';
@@ -38,13 +44,66 @@ void baseAccount::displayBankBalance()
 void baseAccount::displayTransactionHistory()
 {
 	if (transactionHistory[0] == "EMPTY") return;//early exit
+	else
+		std::cout << collectTransactionHistory() << '\n';
+}
 
-	for (unsigned int i = 0; i < transactionHistory.size(); i++)
+std::string baseAccount::collectTransactionHistory()
+{
+	std::string fullTransactionHistory{transactionHistory[0]};
+	if (transactionHistory.size() > 0) 
 	{
-		std::cout << transactionHistory[i] << '\n';
+		for (unsigned int i = 1; i < transactionHistory.size(); i++)
+			fullTransactionHistory += ('\n' + transactionHistory[i]);
 	}
+	return fullTransactionHistory;
 }
 
 
 
+void baseAccount::saveAccountInfo() 
+{
+	std::fstream file;
+	file.open(fileName(userId), std::ios_base::out);
+	if (file.is_open())
+	{
+		std::string allUserInfo{ userId + '\n' + userName + '\n' + /*include later personal information*/ doubleToString(accountBalance) + '\n' + collectTransactionHistory()};
+		file << allUserInfo; 
+		file.close(); 
+		//collect all user info
+		//output it all into the file, overwrite everything
+		//close file
+	}
+}
+
+bool baseAccount::checkUserContent(std::string id, std::string name, std::string DoB, double balance, std::vector<std::string> history)
+{
+	//check id: match file id with inside id
+	//check name: go through filtering
+	//check date of birth: filter 
+	//check money: filter and count # of decimals
+	//check transaction history: for each item need to check for correct formats
+}
+
+bool baseAccount::checkUserId() 
+{
+	if (userId.size() != 5 || !(hasUndesiredCharacter(userId, "0123456789")) || !(lookupFile(userId)))
+		return false;
+	else
+	{
+		baseAccount testAccount(userId);
+		if (testAccount.giveUserId() != userId)
+			return false;
+		// this method loads the same account and tries to 
+	}
+
+	return true;	
+}
+
+//function to detect if file has incorrect information
+// check to see if it has correct ID, name, DoB, money, transaction history, etc. 
+// will not check if there is missing information 
+// 
+// lookup file function already exists
+// 
 //planning on having administrator accounts that also inherit from baseAccount.
