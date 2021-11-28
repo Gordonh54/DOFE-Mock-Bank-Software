@@ -13,13 +13,15 @@ public:
 	std::string collectTransactionHistory();
 	bool checkUserContent(std::string id, std::string name, std::string DoB, double balance, std::vector<std::string> history);
 	bool checkUserId();
+	void closeAccount();
 
 protected:
 	std::string userName;
 	std::string userId;
 	std::string dateOfBirth; //basic account information that all accounts will start with.
 	std::vector<std::string> transactionHistory;
-	double accountBalance;
+	int accountBalance;
+	bool accountOpen;
 };
 
 #endif

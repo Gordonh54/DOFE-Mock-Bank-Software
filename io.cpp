@@ -200,7 +200,6 @@ std::string filterString(std::string prompt, int numberOfSpaces, std::string all
 		}
 		else
 			break;//exit loop
-
 	}
 	//ask for string
 	//go through string and pick up on number of spaces, any special characters, and numbers

@@ -11,16 +11,19 @@ baseAccount::baseAccount(std::string id)
 	file.open(fileName(id), std::ios_base::in);
 	if (file.is_open())
 	{
+		/*validate information before fully loading*/
 		std::string line{};
 		while (std::getline(file, line))
 		{
 			transactionHistory.push_back(line);
 		}
-		userId = transactionHistory[0];
-		userName = transactionHistory[1];
-		dateOfBirth = transactionHistory[2];
-		accountBalance = stringToDouble(transactionHistory[3]);
-		for (int i = 0; i < 4; i++) //delete first 4 items
+		int j{ 0 };
+		accountOpen = stringToInt( transactionHistory[j++] );
+		userId = transactionHistory[j++];
+		userName = transactionHistory[j++];
+		dateOfBirth = transactionHistory[j++];
+		accountBalance = stringToInt(transactionHistory[j++]); //validate that the value is numeric before saving
+		for (int i = 0; i < 4; i++) //delete first 4 items of vector; 
 		{
 			transactionHistory.erase(transactionHistory.begin());
 		}
@@ -59,7 +62,10 @@ std::string baseAccount::collectTransactionHistory()
 	return fullTransactionHistory;
 }
 
-
+void baseAccount::closeAccount()
+{
+	accountOpen = false;
+}
 
 void baseAccount::saveAccountInfo() 
 {
@@ -67,7 +73,7 @@ void baseAccount::saveAccountInfo()
 	file.open(fileName(userId), std::ios_base::out);
 	if (file.is_open())
 	{
-		std::string allUserInfo{ userId + '\n' + userName + '\n' + /*include later personal information*/ doubleToString(accountBalance) + '\n' + collectTransactionHistory()};
+		std::string allUserInfo{ intToString(accountOpen) + '\n' + userId + '\n' + userName + '\n' + /*include later personal information*/ doubleToString(accountBalance) + '\n' + collectTransactionHistory()};
 		file << allUserInfo; 
 		file.close(); 
 		//collect all user info
@@ -76,6 +82,7 @@ void baseAccount::saveAccountInfo()
 	}
 }
 
+/*
 bool baseAccount::checkUserContent(std::string id, std::string name, std::string DoB, double balance, std::vector<std::string> history)
 {
 	//check id: match file id with inside id
@@ -84,17 +91,18 @@ bool baseAccount::checkUserContent(std::string id, std::string name, std::string
 	//check money: filter and count # of decimals
 	//check transaction history: for each item need to check for correct formats
 }
+*/
 
 bool baseAccount::checkUserId() 
 {
 	if (userId.size() != 5 || !(hasUndesiredCharacter(userId, "0123456789")) || !(lookupFile(userId)))
-		return false;
+		return false; //checks if it has invalid format
 	else
 	{
 		baseAccount testAccount(userId);
 		if (testAccount.giveUserId() != userId)
 			return false;
-		// this method loads the same account and tries to 
+		// this method loads the same account and tries to match that contained ID with the ID 
 	}
 
 	return true;	

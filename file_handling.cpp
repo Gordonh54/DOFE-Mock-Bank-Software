@@ -10,7 +10,7 @@ void createNewFile(std::string name, std::string id, std::string dateOfBirth) //
 	//std::ios_base::app is for appending file information
 	if (newFile.is_open())
 	{
-		newFile << id << '\n' << name << '\n' << dateOfBirth << '\n' << "0\n" << "EMPTY";
+		newFile << 1 /*1 is for true, marking account as open*/ << '\n' << id << '\n' << name << '\n' << dateOfBirth << '\n' << "0\n" << "EMPTY";
 		newFile.close();
 		if (newFile.is_open())
 			std::cout << "Stream could not close!\n";

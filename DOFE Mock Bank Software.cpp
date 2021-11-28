@@ -14,8 +14,9 @@
 
 int main()
 {
-    //createNewAccount();
-    //mainMenu
+    mainMenu();
+    baseAccount myAccount(stringInput("give id"));
+    myAccount.displayAccountInfo();
 }
 
 

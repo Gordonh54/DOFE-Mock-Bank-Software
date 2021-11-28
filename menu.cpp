@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "menu.h"
 #include "io.h"
-
+#include "account_creation.h"
+#include "accounts.h"
 
 /*
 MENU FORMAT
@@ -28,7 +29,8 @@ void mainMenu()
 	
 	Main Menu
 	[1] Access account (or maybe go straight to login)
-	
+	[2] Create new account
+
 	[0] Exit
 
 	collect input for navigation
@@ -37,12 +39,15 @@ void mainMenu()
 	int navigationChoice{};
 	do {
 		std::cout << "Main Menu \n";
-		createMenuOptions("Access account");
-		navigationChoice = intFromRange_Inclusive(0, 1, "Enter your navigation choice: ");
+		createMenuOptions("Access account", "Create new account"); 
+		navigationChoice = intFromRange_Inclusive(0, 2, "Enter your navigation choice: ");
 		switch (navigationChoice) //this switch case is relatively redundant for main menu currently, but I'll leave it as is for a future change.
 		{
 		case 1:
 			accountMenu();
+			break;
+		case 2:
+			createNewAccount();
 			break;
 		case 0:
 			stayInMenu = false;
@@ -104,6 +109,7 @@ void accountInformationMenu()
 	bool stayInMenu{ true }; // for the loop
 	int navigationChoice{}; //avoid re-initialization, so put outside of loop
 	do {
+
 		std::cout << "Account Information Menu\n";
 		//displayAccountInfo();
 		createMenuOptions(); // no options except for [0] back

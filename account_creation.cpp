@@ -23,17 +23,12 @@ std::string createRandomId()
 	
 	std::string generatedId{}; 
 	while (true) {
-		int idInt{ 0 }; //random numbers will be stacked onto this
+		generatedId = intToString(randomIntRange(numberOfIdCharacters[0], numberOfIdCharacters[1])); //random numbers will be stacked onto this
 
-		for (int i = 0; i < idLength; i++)//stacking the random numbers
+		for (int i = 0; i < idLength-1 /*now that we initialize with the first character, we only need to add 1 less char to string*/; i++)//stacking the random numbers
 		{
-			if (i > 0)
-				idInt *= 10; //multiply by ten to stack numbers
-
-			idInt += randomIntRange(numberOfIdCharacters[0], numberOfIdCharacters[1]);
+			generatedId += intToString(randomIntRange(numberOfIdCharacters[0], numberOfIdCharacters[1]));
 		}
-
-		generatedId = intToString(idInt);
 
 		if (!lookupFile(generatedId))//attempt to open a file with this id. If it cannot find a file with this id, then it is a unique id.
 			break;//if found no match in database, break from loop as this is a new ID
