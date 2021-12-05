@@ -30,7 +30,7 @@ baseAccount::baseAccount(std::string id)
 	}
 	file.close();
 }
-void baseAccount::displayAccountInfo()
+const void baseAccount::displayAccountInfo()
 {
 	std::cout << userName << "\nID: " << userId << "\nDate of Birth: " << dateOfBirth << '\n';
 } //display basic account info
@@ -95,7 +95,7 @@ bool baseAccount::checkUserContent(std::string id, std::string name, std::string
 
 bool baseAccount::checkUserId() 
 {
-	if (userId.size() != 5 || !(hasUndesiredCharacter(userId, "0123456789")) || !(lookupFile(userId)))
+	if (!filterUserId(userId))
 		return false; //checks if it has invalid format
 	else
 	{
@@ -106,6 +106,13 @@ bool baseAccount::checkUserId()
 	}
 
 	return true;	
+}
+
+bool filterUserId(std::string testUserId)
+{
+	if (testUserId.size() != 5 /*check # of correct digits*/ || hasUndesiredCharacter(testUserId, "0123456789") || !(lookupFile(testUserId)))
+		return false;
+	return true;
 }
 
 //function to detect if file has incorrect information

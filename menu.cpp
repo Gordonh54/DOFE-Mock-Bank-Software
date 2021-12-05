@@ -21,6 +21,7 @@ if exiting this menu and going out to parent menu, break loop, thus going back t
 
 */
 
+const std::string menuBackOption{ "\n\n[0] Back\n" };
 
 void mainMenu() 
 {
@@ -44,7 +45,7 @@ void mainMenu()
 		switch (navigationChoice) //this switch case is relatively redundant for main menu currently, but I'll leave it as is for a future change.
 		{
 		case 1:
-			accountMenu();
+			accountLoginMenu();
 			break;
 		case 2:
 			createNewAccount();
@@ -57,14 +58,42 @@ void mainMenu()
 	//return to caller
 }
 
-void accountMenu()
+void accountLoginMenu() 
 {
-	//load account information
-	/*
+	std::cout << "Login Menu\n";
+	std::string userLoginInput{};
+	while (true)
+	{
+
+		userLoginInput = stringInput("Login with ID" + menuBackOption);
+		if (filterUserId(userLoginInput))
+		{
+			accountMenu(userLoginInput);
+			break; //exit to main menu
+		}
+		else if (stringToInt(userLoginInput) == 0)
+		{
+			break;
+		}
+		else
+		{
+			std::cout << "Account not found\n\n";
+		}
+
+	}
+	//look for ID, if found, enter account menu
+	//if it is zero, exit
+
+}
+
+void accountMenu(std::string userLoginId)
+{
+	//load account information by creating class object.
+	/* 
 	displayBasicAccountInfo();
 	Features:
 	* Account Name: abc
-	* ID: 01234567889
+	* ID: 01234
 
 	[1] View information
 	[2] Manage accounts
@@ -72,10 +101,13 @@ void accountMenu()
 	[0] Back
 
 
+
 	collect input for navigation
 	*/
 	bool stayInMenu{ true }; // for the loop
 	int navigationChoice{}; //avoid re-initialization, so put outside of loop
+	baseAccount userAccount(userLoginId); //load account
+
 	do {
 		std::cout << "Account Menu\n";
 		//displayBasicAccountInfo();
@@ -85,7 +117,7 @@ void accountMenu()
 		switch (navigationChoice)
 		{
 		case 1: 
-			accountInformationMenu();
+			accountInformationMenu(userAccount);
 			break;
 		case 2: 
 			manageAccountMenu();
@@ -98,19 +130,25 @@ void accountMenu()
 	//exit to caller
 }
 
-void accountInformationMenu()
+void accountInformationMenu (baseAccount& userAccount) //read only, in a later time make it const baseAccount& userAccount
 {
 	//account info should still be saved
 	/*
 	displayAccountInfo(); // the function for all accout info that shows account personal information, balance, and history
+	Display name  
+	Display ID
+	Display other personal information
 
 	[0] Back
 	*/
 	bool stayInMenu{ true }; // for the loop
 	int navigationChoice{}; //avoid re-initialization, so put outside of loop
 	do {
-
+		
 		std::cout << "Account Information Menu\n";
+
+		userAccount.displayAccountInfo();
+
 		//displayAccountInfo();
 		createMenuOptions(); // no options except for [0] back
 		navigationChoice = intFromRange_Inclusive(0, 0, "Enter your navigation choice: ");
@@ -162,7 +200,7 @@ void manageAccountMenu()
 	//exit to caller
 }
 
-void createMenuOptions(std::string option1, std::string option2, std::string option3) 
+void createMenuOptions(std::string option1, std::string option2, std::string option3)
 {
 	//unless string option is empty we can display it as an option
 	if (option1 != "")
@@ -171,9 +209,8 @@ void createMenuOptions(std::string option1, std::string option2, std::string opt
 		std::cout << "[2] " << option2 << '\n';
 	if (option3 != "")
 		std::cout << "[3] " << option3 << '\n';
-	
+
 	//regardless in all menu options the [0] one must be present
-	std::cout << "\n\n"//create big line break or gap
-		"[0] Back\n"; 
+	std::cout << menuBackOption;
 
 }

@@ -15,8 +15,6 @@
 int main()
 {
     mainMenu();
-    baseAccount myAccount(stringInput("give id"));
-    myAccount.displayAccountInfo();
 }
 
 

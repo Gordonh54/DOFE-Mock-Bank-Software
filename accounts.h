@@ -5,13 +5,13 @@ class baseAccount
 {
 public: 
 	baseAccount(std::string id);
-	void displayAccountInfo();
+	const void displayAccountInfo();
 	std::string giveUserId();
 	void displayBankBalance();
 	void displayTransactionHistory();
 	void saveAccountInfo();
 	std::string collectTransactionHistory();
-	bool checkUserContent(std::string id, std::string name, std::string DoB, double balance, std::vector<std::string> history);
+	//bool checkUserContent(std::string id, std::string name, std::string DoB, double balance, std::vector<std::string> history);
 	bool checkUserId();
 	void closeAccount();
 
@@ -23,6 +23,9 @@ protected:
 	int accountBalance;
 	bool accountOpen;
 };
+
+bool filterUserId(std::string);
+
 
 #endif
 
