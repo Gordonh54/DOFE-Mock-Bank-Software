@@ -164,6 +164,7 @@
   <ItemGroup>
     <ClInclude Include="accounts.h" />
     <ClInclude Include="account_creation.h" />
+    <ClInclude Include="char_sets.h" />
     <ClInclude Include="file_handling.h" />
     <ClInclude Include="io.h" />
     <ClInclude Include="menu.h" />

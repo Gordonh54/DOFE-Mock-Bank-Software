@@ -14,6 +14,8 @@ public:
 	//bool checkUserContent(std::string id, std::string name, std::string DoB, double balance, std::vector<std::string> history);
 	bool checkUserId();
 	void closeAccount();
+	bool checkAccountOpen();
+	bool checkUserName();
 
 protected:
 	std::string userName;

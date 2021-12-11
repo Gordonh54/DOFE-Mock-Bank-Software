@@ -10,11 +10,11 @@ void accountMenu(std::string userLoginId);
 
 void accountInformationMenu(baseAccount& userAccount);
 
-void manageAccountMenu();
+void manageAccountMenu(baseAccount& userAccount);
 
 void accountLoginMenu();
 
-void createMenuOptions(std::string option1 = "", std::string option2 = "", std::string option3 = "");
+void createMenuOptions(std::string option1 = "", std::string option2 = "", std::string option3 = "", std::string option4 = "");
 
 #endif
 

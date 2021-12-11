@@ -62,5 +62,8 @@
     <ClInclude Include="file_handling.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="char_sets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

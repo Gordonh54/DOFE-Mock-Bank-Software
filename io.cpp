@@ -186,15 +186,8 @@ std::string filterString(std::string prompt, int numberOfSpaces, std::string all
 	std::string unfilteredString{};
 	while (true) 
 	{
-		int spacesUsed{ 0 };
 		unfilteredString =  stringInput(prompt);
-		for (unsigned int i = 0; i < unfilteredString.size(); i++) 
-		{
-			if (unfilteredString[i] == ' ')
-				spacesUsed++;
-		}
-
-		if (hasUndesiredCharacter(unfilteredString, allowedCharacters) || spacesUsed > numberOfSpaces)
+		if (checkString(unfilteredString, numberOfSpaces, allowedCharacters))
 		{
 			std::cout << "Your input contains an invalid character. Please try again.\n";
 		}
@@ -206,6 +199,23 @@ std::string filterString(std::string prompt, int numberOfSpaces, std::string all
 	// if number of spaces, special characters, or numbers rules are violated, go back to beginning an ask for string again. 
 	//otherwise return the string
 	return unfilteredString;
+}
+
+bool checkString(std::string stringRequireCheck, int numberOfSpaces, std::string allowedCharacters) 
+{
+	int spacesUsed{ 0 };
+	for (unsigned int i = 0; i < stringRequireCheck.size(); i++)
+	{
+		if (stringRequireCheck[i] == ' ')
+			spacesUsed++;
+	}
+
+	if (hasUndesiredCharacter(stringRequireCheck, allowedCharacters) || spacesUsed > numberOfSpaces)
+	{
+		return false; //if error in text
+	}
+	else
+		return true;
 }
 
 bool hasUndesiredCharacter(std::string string, std::string allowedCharacters) 

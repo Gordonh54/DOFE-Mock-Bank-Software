@@ -25,6 +25,8 @@ double stringToDouble(std::string numberString);
 
 std::string filterString(std::string prompt, int numberOfSpaces, std::string allowedCharacters);
 
+bool checkString(std::string stringRequireCheck, int numberOfSpaces, std::string allowedCharacters);
+
 int intFromRange_Inclusive(int min, int max, std::string prompt);
 
 bool hasUndesiredCharacter(std::string string, std::string allowedCharacters);

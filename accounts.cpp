@@ -2,7 +2,8 @@
 #include "io.h"
 #include "file_handling.h"
 #include "accounts.h"
-
+#include "account_creation.h"
+#include "char_sets.h"
 
 
 baseAccount::baseAccount(std::string id)
@@ -73,7 +74,7 @@ void baseAccount::saveAccountInfo()
 	file.open(fileName(userId), std::ios_base::out);
 	if (file.is_open())
 	{
-		std::string allUserInfo{ intToString(accountOpen) + '\n' + userId + '\n' + userName + '\n' + /*include later personal information*/ doubleToString(accountBalance) + '\n' + collectTransactionHistory()};
+		std::string allUserInfo{ intToString(accountOpen) + '\n' + userId + '\n' + userName + '\n' + dateOfBirth + '\n' +/*include later personal information*/ intToString(accountBalance) + '\n' + collectTransactionHistory()};
 		file << allUserInfo; 
 		file.close(); 
 		//collect all user info
@@ -108,11 +109,24 @@ bool baseAccount::checkUserId()
 	return true;	
 }
 
+bool baseAccount::checkUserName()
+{
+	if (!checkString(userName, charSets::spacesAllowedInNames, charSets::nameChars))
+		return false;
+	else
+		return true;
+}
+
 bool filterUserId(std::string testUserId)
 {
 	if (testUserId.size() != 5 /*check # of correct digits*/ || hasUndesiredCharacter(testUserId, "0123456789") || !(lookupFile(testUserId)))
 		return false;
 	return true;
+}
+
+bool baseAccount::checkAccountOpen() 
+{
+	return accountOpen;
 }
 
 //function to detect if file has incorrect information
