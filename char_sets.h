@@ -1,9 +1,12 @@
-#pragma once
+#ifndef CHARSETS_H
+#define CHARSETS_H
 
 namespace charSets
 {
-	std::string nameChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "; //all characters allowed in names. Should one include periods and dashes?
-	int spacesAllowedInNames = 5; //set it to 5 for now, currently unsure
-	std::string numbers = "0123456789";
-	std::string dateOfBirthChars = numbers + "/";
+	extern std::string nameChars;
+	extern const int spacesAllowedInNames; //set it to 5 for now, currently unsure
+	extern std::string numbers;
+	extern std::string dateOfBirthChars;
 };
+
+#endif

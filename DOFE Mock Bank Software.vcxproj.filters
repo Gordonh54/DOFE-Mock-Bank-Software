@@ -39,6 +39,9 @@
     <ClCompile Include="file_handling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="char_sets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">

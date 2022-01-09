@@ -26,8 +26,8 @@ protected:
 	bool accountOpen;
 };
 
-bool filterUserId(std::string);
-
+bool filterUserId(std::string testUserId);
+bool checkAccountBalance(int accountBalance);
 
 #endif
 

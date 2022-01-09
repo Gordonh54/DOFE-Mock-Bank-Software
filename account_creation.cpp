@@ -129,5 +129,5 @@ bool filterDateOfBirth(std::string dobInput)
 		return false;
 	}
 
-	return true;
-}
+	return true; 
+} //return true if correct
