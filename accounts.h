@@ -12,10 +12,13 @@ public:
 	void saveAccountInfo();
 	std::string collectTransactionHistory();
 	//bool checkUserContent(std::string id, std::string name, std::string DoB, double balance, std::vector<std::string> history);
-	bool checkUserId();
 	void closeAccount();
+
+	bool checkUserId();
 	bool checkAccountOpen();
 	bool checkUserName();
+	bool checkUserBalance();
+	bool checkUserDateOfBirth();
 
 protected:
 	std::string userName;
@@ -28,6 +31,8 @@ protected:
 
 bool filterUserId(std::string testUserId);
 bool checkAccountBalance(int accountBalance);
+bool checkUserContent(std::string userId);
+
 
 #endif
 

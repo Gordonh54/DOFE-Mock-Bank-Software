@@ -127,7 +127,7 @@ int stringToInt(std::string integer)
 			newInt *= 10; //multiply by 10 to add upon the next digit.
 		if (charToInt(integer[i]) == -1) // if returned -1, being the error number
 		{
-			std::cout << "Invalid character used!\n";
+			//std::cout << "Invalid character used!\n";
 			return -1;
 		}
 		else

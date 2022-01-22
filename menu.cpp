@@ -18,7 +18,6 @@ if entering further into the menu, call that menu function
 
 if exiting this menu and going out to parent menu, break loop, thus going back to caller.
 }
-
 */
 
 const std::string menuBackOption{ "\n\n[0] Back\n" };
@@ -64,10 +63,14 @@ void accountLoginMenu()
 	std::string userLoginInput{};
 	while (true)
 	{
-
 		userLoginInput = stringInput("Login with ID" + menuBackOption);
 		if (filterUserId(userLoginInput))
 		{
+			//check account details here before loading, if it works then pass. If not, then we should flag it as bad
+			if (!(checkUserContent(userLoginInput)))
+			{
+				break;
+			}
 			accountMenu(userLoginInput);
 			break; //exit to main menu
 		}
@@ -120,7 +123,7 @@ void accountMenu(std::string userLoginId)
 			break;
 		}
 
-		// open account menu
+		// opened account menu
 		else if (userAccount.checkAccountOpen()) 
 		{
 			std::cout << "Account Menu\n";
@@ -163,10 +166,9 @@ void accountInformationMenu (baseAccount& userAccount) //read only, in a later t
 	do {
 		
 		std::cout << "Account Information Menu\n";
-
 		userAccount.displayAccountInfo();
+		userAccount.displayBankBalance();
 
-		//displayAccountInfo();
 		createMenuOptions(); // no options except for [0] back
 		navigationChoice = intFromRange_Inclusive(0, 0, "Enter your navigation choice: ");
 
@@ -191,6 +193,7 @@ void manageAccountMenu(baseAccount& userAccount)
 
 	[0] Back
 	*/
+
 	bool stayInMenu{ true }; // for the loop
 	int navigationChoice{}; //avoid re-initialization, so put outside of loop
 	int closeAccountChoice{};

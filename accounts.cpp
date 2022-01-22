@@ -83,17 +83,9 @@ void baseAccount::saveAccountInfo()
 	}
 }
 
-/*
-bool baseAccount::checkUserContent()
-{
-	//check id: match file id with inside id
-	if (
-	//check name: go through filtering
-	//check date of birth: filter 
-	//check money: filter and count # of decimals
-	//check transaction history: for each item need to check for correct formats
-}
-*/
+
+
+
 
 bool baseAccount::checkUserId() 
 {
@@ -148,7 +140,12 @@ bool filterTransactionHistory(std::vector<std::string> transactionHistory)
 
 //filterDateOfBirth() exists
 
-bool checkAccountBalance(int accountBalance)
+bool baseAccount::checkUserDateOfBirth()
+{
+	return filterDateOfBirth(dateOfBirth);
+}
+
+bool baseAccount::checkUserBalance() //check if account balance variable is correct type or if it is not negative.
 {
 	int testValue{ 0 };
 	if (!(typeid(testValue).name() == typeid(accountBalance).name())) //checks if it is correct data type
@@ -157,8 +154,24 @@ bool checkAccountBalance(int accountBalance)
 		return false;
 	else 
 		return true;
-	
 }
 
+bool checkUserContent(std::string userId)
+{
+	baseAccount validateAccount(userId);
+
+	if (!(validateAccount.checkUserId() && validateAccount.checkUserName() && validateAccount.checkUserBalance()
+		&& validateAccount.checkUserDateOfBirth()))
+	{
+		//maybe should also print error message
+		//temporary:
+		std::cout << "Incorrect File Information.\n";
+		return false;
+	}
+	else
+		return true;
+
+	//check transaction history: for each item need to check for correct formats
+}
 
 //planning on having administrator accounts that also inherit from baseAccount.
