@@ -5,7 +5,7 @@
 #include "account_creation.h"
 #include "char_sets.h"
 
-
+//planning on having administrator accounts that also inherit from baseAccount.
 baseAccount::baseAccount(std::string id)
 {
 	std::fstream file;
@@ -31,6 +31,30 @@ baseAccount::baseAccount(std::string id)
 	}
 	file.close();
 }
+
+void baseAccount::closeAccount()
+{
+	accountOpen = false;
+}
+
+void baseAccount::saveAccountInfo()
+{
+	std::fstream file;
+	file.open(fileName(userId), std::ios_base::out);
+	if (file.is_open())
+	{
+		std::string allUserInfo{ intToString(accountOpen) + '\n' + userId + '\n' + userName + '\n' + dateOfBirth + '\n' +/*include later personal information*/ intToString(accountBalance) + '\n' + collectTransactionHistory() };
+		file << allUserInfo;
+		file.close();
+		//collect all user info
+		//output it all into the file, overwrite everything
+		//close file
+	}
+}
+
+/// 
+/// View account info functions
+/// 
 const void baseAccount::displayAccountInfo()
 {
 	std::cout << userName << "\nID: " << userId << "\nDate of Birth: " << dateOfBirth << '\n';
@@ -63,28 +87,9 @@ std::string baseAccount::collectTransactionHistory()
 	return fullTransactionHistory;
 }
 
-void baseAccount::closeAccount()
-{
-	accountOpen = false;
-}
-
-void baseAccount::saveAccountInfo() 
-{
-	std::fstream file;
-	file.open(fileName(userId), std::ios_base::out);
-	if (file.is_open())
-	{
-		std::string allUserInfo{ intToString(accountOpen) + '\n' + userId + '\n' + userName + '\n' + dateOfBirth + '\n' +/*include later personal information*/ intToString(accountBalance) + '\n' + collectTransactionHistory()};
-		file << allUserInfo; 
-		file.close(); 
-		//collect all user info
-		//output it all into the file, overwrite everything
-		//close file
-	}
-}
-
-
-
+/// 
+/// Check Account info functions
+/// 
 
 
 bool baseAccount::checkUserId() 
@@ -138,8 +143,6 @@ bool filterTransactionHistory(std::vector<std::string> transactionHistory)
 }
 */
 
-//filterDateOfBirth() exists
-
 bool baseAccount::checkUserDateOfBirth()
 {
 	return filterDateOfBirth(dateOfBirth);
@@ -174,4 +177,61 @@ bool checkUserContent(std::string userId)
 	//check transaction history: for each item need to check for correct formats
 }
 
-//planning on having administrator accounts that also inherit from baseAccount.
+///
+/// Manage money account functions
+/// 
+
+/*
+//called from main menu
+void baseAccount::addFunds(int changeInQuantity)
+{
+	accountBalance += changeInQuantity;
+	saveAccountInfo();
+}
+void baseAccount::subtractFunds(int changeInQuantity)
+{
+	accountBalance -= changeInQuantity;
+	saveAccountInfo();
+}
+
+void baseAccount::depositMoney(int deposit)
+{
+	addFunds(deposit);
+	displayBankBalance();
+}
+
+void baseAccount::withdrawMoney(int withdrawal)
+{
+	if (checkIfSufficientFunds())
+	{
+		subtractFunds(withdrawal);
+		displayBankBalance();
+	}
+}
+
+bool baseAccount::checkIfSufficientFunds(int requestedWithdrawal)
+{
+	if (requestedWithdrawal > currentBalance)
+	{
+		std::cout << "You do not have enough funds.\n";
+		displayBankBalance();
+		return false;
+	}
+	else 
+		return true;
+}
+
+void baseAccount::transferFunds(int quantity, std::string targetId)
+{
+	withdrawMoney(quantity);
+	baseAccount transferAccount(targetId);
+	transferAccount.addFunds(quantity);
+	//createTransactionLog(targetId, quantity);
+}
+
+void baseAccount::createTransactionLog(int)
+{
+	
+	//append a message to transactionHistory<>
+}
+*/

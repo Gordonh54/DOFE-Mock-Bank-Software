@@ -187,7 +187,7 @@ std::string filterString(std::string prompt, int numberOfSpaces, std::string all
 	while (true) 
 	{
 		unfilteredString =  stringInput(prompt);
-		if (checkString(unfilteredString, numberOfSpaces, allowedCharacters))
+		if (!(checkString(unfilteredString, numberOfSpaces, allowedCharacters)))
 		{
 			std::cout << "Your input contains an invalid character. Please try again.\n";
 		}
