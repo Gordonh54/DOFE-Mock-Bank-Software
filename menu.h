@@ -12,6 +12,12 @@ void accountInformationMenu(baseAccount& userAccount);
 
 void manageAccountMenu(baseAccount& userAccount);
 
+void manageBalanceMenu(baseAccount& userAccount);
+
+void depositMenu(baseAccount& userAccount);
+
+void withdrawMenu(baseAccount& userAccount);
+
 void accountLoginMenu();
 
 void createMenuOptions(std::string option1 = "", std::string option2 = "", std::string option3 = "", std::string option4 = "");

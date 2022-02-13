@@ -14,13 +14,23 @@ public:
 	//bool checkUserContent(std::string id, std::string name, std::string DoB, double balance, std::vector<std::string> history);
 	void closeAccount();
 
+	//vaidation of user information
 	bool checkUserId();
 	bool checkAccountOpen();
 	bool checkUserName();
 	bool checkUserBalance();
 	bool checkUserDateOfBirth();
 
+	//managing money
+	
+	void depositMoney(int deposit);
+	void withdrawMoney(int withdrawal);
+	bool checkIfSufficientFunds(int requestedWithdrawal);
+
 protected:
+	void addFunds(int changeInQuantity);
+	void subtractFunds(int changeInQuantity);
+
 	std::string userName;
 	std::string userId;
 	std::string dateOfBirth; //basic account information that all accounts will start with.

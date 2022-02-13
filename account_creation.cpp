@@ -84,6 +84,7 @@ std::string getDateOfBirth()
 
 bool filterDateOfBirth(std::string dobInput)
 {	
+	//correct date formatting: MM/DD/YYYY
 	std::string monthStr{ combineChars(dobInput[0], dobInput[1]) };
 	std::string dayStr{ combineChars(dobInput[3], dobInput[4]) };
 	std::string yearStr1{ combineChars(dobInput[6], dobInput[7]) };
@@ -121,10 +122,12 @@ bool filterDateOfBirth(std::string dobInput)
 		else 
 			break;
 	case 2:
-		 if (dayInt < 0 || (dayInt > 28 && (yearInt%4 != 0))) // modulus 4 because all leap years are divisible by 4
+		 if (dayInt < 0 || (dayInt > 28 && (yearInt%4 != 0))) //if the feb date is greater than 28, it also has to be a leap year
 			 return false;
-		 if (dayInt != 29)
+		 if (dayInt > 29)
 			 return false;
+		 else
+			 break;
 	default:
 		return false;
 	}

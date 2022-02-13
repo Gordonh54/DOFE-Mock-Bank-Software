@@ -181,7 +181,7 @@ bool checkUserContent(std::string userId)
 /// Manage money account functions
 /// 
 
-/*
+
 //called from main menu
 void baseAccount::addFunds(int changeInQuantity)
 {
@@ -198,20 +198,22 @@ void baseAccount::depositMoney(int deposit)
 {
 	addFunds(deposit);
 	displayBankBalance();
+	//displayTransactionLog();
 }
 
 void baseAccount::withdrawMoney(int withdrawal)
 {
-	if (checkIfSufficientFunds())
+	if (checkIfSufficientFunds(withdrawal))
 	{
 		subtractFunds(withdrawal);
 		displayBankBalance();
+		//displayTransactionLog();
 	}
 }
 
 bool baseAccount::checkIfSufficientFunds(int requestedWithdrawal)
 {
-	if (requestedWithdrawal > currentBalance)
+	if (requestedWithdrawal > accountBalance)
 	{
 		std::cout << "You do not have enough funds.\n";
 		displayBankBalance();
@@ -220,7 +222,7 @@ bool baseAccount::checkIfSufficientFunds(int requestedWithdrawal)
 	else 
 		return true;
 }
-
+/*
 void baseAccount::transferFunds(int quantity, std::string targetId)
 {
 	withdrawMoney(quantity);
@@ -229,7 +231,7 @@ void baseAccount::transferFunds(int quantity, std::string targetId)
 	//createTransactionLog(targetId, quantity);
 }
 
-void baseAccount::createTransactionLog(int)
+void baseAccount::createTransactionLog()
 {
 	
 	//append a message to transactionHistory<>

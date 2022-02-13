@@ -164,7 +164,6 @@ void accountInformationMenu (baseAccount& userAccount) //read only, in a later t
 	bool stayInMenu{ true }; // for the loop
 	int navigationChoice{}; //avoid re-initialization, so put outside of loop
 	do {
-		
 		std::cout << "Account Information Menu\n";
 		userAccount.displayAccountInfo();
 		userAccount.displayBankBalance();
@@ -193,14 +192,12 @@ void manageAccountMenu(baseAccount& userAccount)
 
 	[0] Back
 	*/
-
 	bool stayInMenu{ true }; // for the loop
 	int navigationChoice{}; //avoid re-initialization, so put outside of loop
 	int closeAccountChoice{};
 	do {
 		std::cout << "Account Menu\n";
-		//displayBasicAccountInfo
-		createMenuOptions("Manage personal information", "Deposit/withdraw cash", "Manage transactions", "Close Account");
+		createMenuOptions("Manage personal information", "Deposit/withdraw funds", "Manage transactions", "Close Account");
 		navigationChoice = intFromRange_Inclusive(0, 4, "Enter your navigation choice: ");
 
 		switch (navigationChoice)
@@ -209,7 +206,7 @@ void manageAccountMenu(baseAccount& userAccount)
 			//manageAccountInformationMenu();
 			break;
 		case 2:
-			//manageBalanceMenu();
+			manageBalanceMenu(userAccount);
 			break;
 		case 3: 
 			//manageTransactionMenu();
@@ -238,6 +235,47 @@ void manageAccountMenu(baseAccount& userAccount)
 	//exit to caller
 }
 
+void manageBalanceMenu(baseAccount& userAccount)
+{
+	/*
+	[1] Deposit Funds
+	[2] Withdraw Funds
+
+	[0] Back
+	*/
+	bool stayInMenu{ true }; // for the loop
+	int navigationChoice{}; //avoid re-initialization, so put outside of loop
+	int closeAccountChoice{};
+	do {
+		std::cout << "Manage Balance\n";
+		createMenuOptions("Deposit Funds", "Withdraw Funds");
+		navigationChoice = intFromRange_Inclusive(0, 2, "Enter your navigation choice: ");
+
+		switch (navigationChoice)
+		{
+		case 1:
+			depositMenu(userAccount);
+			break;
+		case 2:
+			withdrawMenu(userAccount);
+			break;
+		case 0:
+			stayInMenu = false;
+			break;
+		}
+	} while (stayInMenu);
+}
+
+void depositMenu(baseAccount& userAccount) 
+{
+	userAccount.depositMoney(intInput("State the amount:"));
+}
+
+void withdrawMenu(baseAccount& userAccount)
+{
+	userAccount.withdrawMoney(intInput("State the amount:"));
+}
+
 void createMenuOptions(std::string option1, std::string option2, std::string option3, std::string option4)
 {
 	//unless string option is empty we can display it as an option
@@ -254,9 +292,6 @@ void createMenuOptions(std::string option1, std::string option2, std::string opt
 	std::cout << menuBackOption;
 
 } //Is there a way the function can take a list of inputs and treat it as one vector? If so this function can be made more concise.
-
-
-
 /*
 createMenuOptions(options);
 navigationChoice = intFromRange_Inclusive(0, x, "Enter your navigation choice: ");
