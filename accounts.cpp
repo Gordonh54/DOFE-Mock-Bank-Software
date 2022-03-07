@@ -24,7 +24,7 @@ baseAccount::baseAccount(std::string id)
 		userName = transactionHistory[j++];
 		dateOfBirth = transactionHistory[j++];
 		accountBalance = stringToInt(transactionHistory[j++]); //validate that the value is numeric before saving
-		for (int i = 0; i < 4; i++) //delete first 4 items of vector; 
+		for (int i = 0; i < 5; i++) //delete first 5 items of vector: account open status, id, name, dob, balance, to leave history behind; 
 		{
 			transactionHistory.erase(transactionHistory.begin());
 		}

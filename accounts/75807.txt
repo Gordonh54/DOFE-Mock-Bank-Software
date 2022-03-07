@@ -3,5 +3,4 @@
 Test Account A
 12/04/2021
 400
-0
 EMPTY
