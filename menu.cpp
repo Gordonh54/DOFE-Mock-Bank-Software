@@ -209,7 +209,7 @@ void manageAccountMenu(baseAccount& userAccount)
 			manageBalanceMenu(userAccount);
 			break;
 		case 3: 
-			//manageTransactionMenu();
+			manageTransactionsMenu(userAccount);
 			break;
 		case 4: 
 			std::cout << "Are you sure you want to close your account?\n";
@@ -245,7 +245,6 @@ void manageBalanceMenu(baseAccount& userAccount)
 	*/
 	bool stayInMenu{ true }; // for the loop
 	int navigationChoice{}; //avoid re-initialization, so put outside of loop
-	int closeAccountChoice{};
 	do {
 		std::cout << "Manage Balance\n";
 		createMenuOptions("Deposit Funds", "Withdraw Funds");
@@ -274,6 +273,37 @@ void depositMenu(baseAccount& userAccount)
 void withdrawMenu(baseAccount& userAccount)
 {
 	userAccount.withdrawMoney(intInput("State the amount:"));
+}
+
+void manageTransactionsMenu(baseAccount& userAccount)
+{
+	bool stayInMenu{ true }; // for the loop
+	int navigationChoice{}; //avoid re-initialization, so put outside of loop
+	std::string transactionId{};
+	int transactionFunds{};
+
+	std::cout << "Transaction Menu\nEnter 0 to exit\n\n";
+	do {
+		
+		transactionId = stringInput("Enter the ID you want to enter:\n"); //check for 3 things if not ID: [1] if it is 0 or if it is the identical ID as user. 
+		if (transactionId == "0")
+			break;
+		else if (transactionId == userAccount.giveUserId())
+		{
+			//probably give an error message stating why 
+			continue;
+		}
+		else if (!(filterUserId(transactionId)))
+			continue;
+
+		transactionFunds = intInput("Enter the quantity of funds you want to transfer to this account:\n"); //check if valid submission
+		if (transactionFunds == 0)
+			break;
+		else if (!(filterUserBalance(transactionFunds)))
+			continue; 
+
+		userAccount.transferFunds(transactionFunds, transactionId);
+	} while (stayInMenu);
 }
 
 void createMenuOptions(std::string option1, std::string option2, std::string option3, std::string option4)

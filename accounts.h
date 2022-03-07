@@ -26,6 +26,7 @@ public:
 	void depositMoney(int deposit);
 	void withdrawMoney(int withdrawal);
 	bool checkIfSufficientFunds(int requestedWithdrawal);
+	void transferFunds(int quantity, std::string targetId);
 
 protected:
 	void addFunds(int changeInQuantity);
@@ -40,6 +41,7 @@ protected:
 };
 
 bool filterUserId(std::string testUserId);
+bool filterUserBalance(int testUserBalance);
 bool checkAccountBalance(int accountBalance);
 bool checkUserContent(std::string userId);
 

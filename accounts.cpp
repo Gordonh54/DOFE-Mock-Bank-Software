@@ -115,11 +115,19 @@ bool baseAccount::checkUserName()
 		return true;
 }
 
-bool filterUserId(std::string testUserId)
+bool filterUserId(std::string testUserId) // if incorrect id, return false
 {
 	if (testUserId.size() != 5 /*check # of correct digits*/ || hasUndesiredCharacter(testUserId, "0123456789") || !(lookupFile(testUserId)))
 		return false;
 	return true;
+}
+
+bool filterUserBalance(int testUserBalance) 
+{
+	if (testUserBalance >= 0)
+		return true;
+	else
+		return false;
 }
 
 bool baseAccount::checkAccountOpen() 
@@ -153,7 +161,7 @@ bool baseAccount::checkUserBalance() //check if account balance variable is corr
 	int testValue{ 0 };
 	if (!(typeid(testValue).name() == typeid(accountBalance).name())) //checks if it is correct data type
 		return false;
-	else if (accountBalance < 0)
+	else if (!(filterUserBalance(accountBalance)))
 		return false;
 	else 
 		return true;
@@ -222,7 +230,8 @@ bool baseAccount::checkIfSufficientFunds(int requestedWithdrawal)
 	else 
 		return true;
 }
-/*
+
+
 void baseAccount::transferFunds(int quantity, std::string targetId)
 {
 	withdrawMoney(quantity);
@@ -231,6 +240,7 @@ void baseAccount::transferFunds(int quantity, std::string targetId)
 	//createTransactionLog(targetId, quantity);
 }
 
+/*
 void baseAccount::createTransactionLog()
 {
 	
