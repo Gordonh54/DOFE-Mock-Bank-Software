@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="accounts.cpp" />
     <ClCompile Include="account_creation.cpp" />
+    <ClCompile Include="date_and_time.cpp" />
     <ClCompile Include="DOFE Mock Bank Software.cpp" />
     <ClCompile Include="file_handling.cpp" />
     <ClCompile Include="io.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="account_creation.h" />
     <ClInclude Include="char_sets.h" />
     <ClInclude Include="file_handling.h" />
+    <ClInclude Include="date_and_time.h" />
     <ClInclude Include="io.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="pch.h" />

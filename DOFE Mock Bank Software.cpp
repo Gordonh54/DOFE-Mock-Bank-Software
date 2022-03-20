@@ -9,12 +9,16 @@
 #include "accounts.h"
 #include "file_handling.h"
 
+#include "date_and_time.h"
+
 #include <iostream>
 #include <string>
 
 int main()
 {
-    mainMenu();
+    std::cout << "Date and Time: " + giveDateAndTime();
+    
+    //mainMenu();
 }
 
 
