@@ -115,7 +115,7 @@ void accountMenu(std::string userLoginId)
 		// 2 menus: open and closed
 		
 		//closed account menu
-		if (!userAccount.checkAccountOpen())
+		if (!userAccount.accountOpenStatus())
 		{
 			std::cout << "Account is Closed\n";
 			accountInformationMenu(userAccount); //take to user information menu as there is nothing here to do
@@ -124,7 +124,7 @@ void accountMenu(std::string userLoginId)
 		}
 
 		// opened account menu
-		else if (userAccount.checkAccountOpen()) 
+		else if (userAccount.accountOpenStatus()) 
 		{
 			std::cout << "Account Menu\n";
 			//displayBasicAccountInfo();
@@ -138,7 +138,7 @@ void accountMenu(std::string userLoginId)
 				break;
 			case 2:
 				manageAccountMenu(userAccount);
-				if (!userAccount.checkAccountOpen()) //if account was closed during account management
+				if (!userAccount.accountOpenStatus()) //if account was closed during account management
 					stayInMenu = false;
 				break;
 			case 0:
@@ -168,11 +168,14 @@ void accountInformationMenu (baseAccount& userAccount) //read only, in a later t
 		userAccount.displayAccountInfo();
 		userAccount.displayBankBalance();
 
-		createMenuOptions(); // no options except for [0] back
-		navigationChoice = intFromRange_Inclusive(0, 0, "Enter your navigation choice: ");
+		createMenuOptions("View transaction history"); // no options except for [0] back
+		navigationChoice = intFromRange_Inclusive(0, 1, "Enter your navigation choice: ");
 
-		switch (navigationChoice) //very redundant right now
+		switch (navigationChoice)
 		{
+		case 1:
+			userAccount.displayTransactionHistory();
+			break;
 		case 0:
 			stayInMenu = false;
 			break;
@@ -286,6 +289,7 @@ void manageTransactionsMenu(baseAccount& userAccount)
 	do {
 		
 		transactionId = stringInput("Enter the ID you want to enter:\n"); //check for 3 things if not ID: [1] if it is 0 or if it is the identical ID as user. 
+		bool isValidId = filterUserId(transactionId);
 		if (transactionId == "0")
 			break;
 		else if (transactionId == userAccount.giveUserId())
@@ -293,8 +297,13 @@ void manageTransactionsMenu(baseAccount& userAccount)
 			//probably give an error message stating why 
 			continue;
 		}
-		else if (!(filterUserId(transactionId)))
+		else if (!isValidId)
 			continue;
+		else if (!checkAccountOpen(transactionId))
+		{
+			std::cout << "Invalid target: Account closed.\n";
+			continue;
+		}
 
 		transactionFunds = intInput("Enter the quantity of funds you want to transfer to this account:\n"); //check if valid submission
 		if (transactionFunds == 0)

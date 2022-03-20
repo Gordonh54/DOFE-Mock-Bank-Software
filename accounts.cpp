@@ -85,8 +85,7 @@ void baseAccount::displayBankBalance()
 //incomplete
 void baseAccount::displayTransactionHistory()
 {
-	if (transactionHistory[0] == "EMPTY") return;//early exit
-	else
+	if (transactionHistory[0] != "EMPTY")
 		std::cout << collectTransactionHistory() << '\n';
 }
 
@@ -144,7 +143,7 @@ bool filterUserBalance(int testUserBalance)
 		return false;
 }
 
-bool baseAccount::checkAccountOpen() 
+bool baseAccount::accountOpenStatus() 
 {
 	return accountOpen;
 }
@@ -268,4 +267,10 @@ void baseAccount::createTransactionLog(int transferredFunds, std::string transac
 	transactionHistory.push_back(transactionMessage);
 	//append a message to transactionHistory<>
 	saveAccountInfo();
+}
+
+bool checkAccountOpen(std::string id) 
+{
+	baseAccount testAccount(id);
+	return testAccount.accountOpenStatus();
 }

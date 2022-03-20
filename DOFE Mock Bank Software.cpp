@@ -17,10 +17,7 @@
 
 int main()
 {
-    baseAccount testAccount1("04466");
-    baseAccount testAccount2("43739");
-    testAccount1.transferFunds(100, "43739");
-    //mainMenu();
+    mainMenu();
 }
 
 

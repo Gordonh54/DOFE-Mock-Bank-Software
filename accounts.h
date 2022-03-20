@@ -16,7 +16,7 @@ public:
 
 	//vaidation of user information
 	bool checkUserId();
-	bool checkAccountOpen();
+	bool accountOpenStatus();
 	bool checkUserName();
 	bool checkUserBalance();
 	bool checkUserDateOfBirth();
@@ -48,6 +48,7 @@ bool filterUserBalance(int testUserBalance);
 bool checkAccountBalance(int accountBalance);
 bool checkUserContent(std::string userId);
 
-
+//this function is generally for accessing other accounts when already within one (a quick way to check if an account is open)
+bool checkAccountOpen(std::string id);
 #endif
 
