@@ -4,8 +4,12 @@
 #include "accounts.h"
 #include "account_creation.h"
 #include "char_sets.h"
+#include "date_and_time.h"
 
 //planning on having administrator accounts that also inherit from baseAccount.
+//
+
+//constructor to load all user information
 baseAccount::baseAccount(std::string id)
 {
 	std::fstream file;
@@ -16,7 +20,7 @@ baseAccount::baseAccount(std::string id)
 		std::string line{};
 		while (std::getline(file, line))
 		{
-			transactionHistory.push_back(line);
+			transactionHistory.push_back(line);//using "transactionHistory" as a temporary vector to hold all information. bad practice but it works
 		}
 		int j{ 0 };
 		accountOpen = stringToInt( transactionHistory[j++] );
@@ -24,7 +28,7 @@ baseAccount::baseAccount(std::string id)
 		userName = transactionHistory[j++];
 		dateOfBirth = transactionHistory[j++];
 		accountBalance = stringToInt(transactionHistory[j++]); //validate that the value is numeric before saving
-		for (int i = 0; i < 5; i++) //delete first 5 items of vector: account open status, id, name, dob, balance, to leave history behind; 
+		for (int i = 0; i < 5; i++) //delete first 5 items of vector: account open status, id, name, dob, balance, and leave history behind; 
 		{
 			transactionHistory.erase(transactionHistory.begin());
 		}
@@ -32,13 +36,24 @@ baseAccount::baseAccount(std::string id)
 	file.close();
 }
 
+//access private variable accountOpen
 void baseAccount::closeAccount()
 {
 	accountOpen = false;
 }
 
+//overwrite everything with current class info for whenever we modify the profile (add money, transactionHistory, etc.)
 void baseAccount::saveAccountInfo()
 {
+	//first, if the EMPTY is still shown at the front of the transaction history when there are other items, just remove it
+	if (transactionHistory.size() > 1 && transactionHistory[0] == "EMPTY")
+	{
+		transactionHistory.erase(transactionHistory.begin());//removes first
+	}
+
+	//collect all user info
+	//output it all into the file, overwrite everything
+	//close file
 	std::fstream file;
 	file.open(fileName(userId), std::ios_base::out);
 	if (file.is_open())
@@ -46,9 +61,6 @@ void baseAccount::saveAccountInfo()
 		std::string allUserInfo{ intToString(accountOpen) + '\n' + userId + '\n' + userName + '\n' + dateOfBirth + '\n' +/*include later personal information*/ intToString(accountBalance) + '\n' + collectTransactionHistory() };
 		file << allUserInfo;
 		file.close();
-		//collect all user info
-		//output it all into the file, overwrite everything
-		//close file
 	}
 }
 
@@ -69,6 +81,8 @@ void baseAccount::displayBankBalance()
 {
 	std::cout << "Current Balance: " << accountBalance << '\n';
 }// note that the balance will always be at 2 decimal places
+
+//incomplete
 void baseAccount::displayTransactionHistory()
 {
 	if (transactionHistory[0] == "EMPTY") return;//early exit
@@ -190,7 +204,8 @@ bool checkUserContent(std::string userId)
 /// 
 
 
-//called from main menu
+//functions are called from main menu
+//note: saveAccountInfo() is used very often and is repeated especially in transferFunds(). This could slow things down later on.
 void baseAccount::addFunds(int changeInQuantity)
 {
 	accountBalance += changeInQuantity;
@@ -206,7 +221,7 @@ void baseAccount::depositMoney(int deposit)
 {
 	addFunds(deposit);
 	displayBankBalance();
-	//displayTransactionLog();
+	createTransactionLog(deposit, "deposit");
 }
 
 void baseAccount::withdrawMoney(int withdrawal)
@@ -215,7 +230,7 @@ void baseAccount::withdrawMoney(int withdrawal)
 	{
 		subtractFunds(withdrawal);
 		displayBankBalance();
-		//displayTransactionLog();
+		createTransactionLog(withdrawal, "withdraw");
 	}
 }
 
@@ -234,16 +249,23 @@ bool baseAccount::checkIfSufficientFunds(int requestedWithdrawal)
 
 void baseAccount::transferFunds(int quantity, std::string targetId)
 {
-	withdrawMoney(quantity);
+	subtractFunds(quantity);
+	displayBankBalance();
+	createTransactionLog(quantity, "transfer");
+
+	//we add money to the other account we want to transfer to
 	baseAccount transferAccount(targetId);
 	transferAccount.addFunds(quantity);
-	//createTransactionLog(targetId, quantity);
+	transferAccount.createTransactionLog(quantity, "receive");
 }
 
-/*
-void baseAccount::createTransactionLog()
+//transactionType is assumed to be either "withdraw", "deposit", "transfer", or "receive"
+void baseAccount::createTransactionLog(int transferredFunds, std::string transactionType)
 {
-	
+
+	std::string transactionMessage{giveDateAndTime() + " " + transactionType + " " + std::to_string(transferredFunds)};
+
+	transactionHistory.push_back(transactionMessage);
 	//append a message to transactionHistory<>
+	saveAccountInfo();
 }
-*/

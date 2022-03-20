@@ -82,6 +82,7 @@ std::string getDateOfBirth()
 	return dateOfBirth;
 }
 
+//likely move somewhere and rename, but hard to find the right place to copy to without breaking everything
 bool filterDateOfBirth(std::string dobInput)
 {	
 	//correct date formatting: MM/DD/YYYY

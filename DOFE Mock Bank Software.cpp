@@ -8,16 +8,18 @@
 #include "account_creation.h"
 #include "accounts.h"
 #include "file_handling.h"
-
 #include "date_and_time.h"
 
 #include <iostream>
 #include <string>
 
+//note: if error message appears that the app cannot be opened for writing, try closing the .exe in task manager
+
 int main()
 {
-    std::cout << "Date and Time: " + giveDateAndTime();
-    
+    baseAccount testAccount1("04466");
+    baseAccount testAccount2("43739");
+    testAccount1.transferFunds(100, "43739");
     //mainMenu();
 }
 

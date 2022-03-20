@@ -27,6 +27,7 @@ public:
 	void withdrawMoney(int withdrawal);
 	bool checkIfSufficientFunds(int requestedWithdrawal);
 	void transferFunds(int quantity, std::string targetId);
+	void createTransactionLog(int transferredFunds, std::string transactionType);
 
 protected:
 	void addFunds(int changeInQuantity);
@@ -40,6 +41,8 @@ protected:
 	bool accountOpen;
 };
 
+
+//general checking account information, can be moved to another file if i really want to
 bool filterUserId(std::string testUserId);
 bool filterUserBalance(int testUserBalance);
 bool checkAccountBalance(int accountBalance);
