@@ -136,6 +136,12 @@ int stringToInt(std::string integer)
 	return newInt;
 }
 
+int stringToInt2(std::string integer)
+{
+	std::string::size_type sz;
+	return std::stoi(integer, &sz);
+}
+
 double stringToDouble(std::string numberString) 
 {
 	double finalNumber{ 0.0 };

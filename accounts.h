@@ -20,6 +20,7 @@ public:
 	bool checkUserName();
 	bool checkUserBalance();
 	bool checkUserDateOfBirth();
+	void filterTransactionHistory(std::vector<std::string> transactionHistory);
 
 	//managing money
 	
@@ -37,6 +38,7 @@ protected:
 	std::string userId;
 	std::string dateOfBirth; //basic account information that all accounts will start with.
 	std::vector<std::string> transactionHistory;
+	std::vector<std::string> printTransactionHistory; //this one is never saved as it is just a temporary vector for printing
 	int accountBalance;
 	bool accountOpen;
 };
@@ -47,6 +49,7 @@ bool filterUserId(std::string testUserId);
 bool filterUserBalance(int testUserBalance);
 bool checkAccountBalance(int accountBalance);
 bool checkUserContent(std::string userId);
+bool checkTransactionHistory(std::string transactionHistory);
 
 //this function is generally for accessing other accounts when already within one (a quick way to check if an account is open)
 bool checkAccountOpen(std::string id);

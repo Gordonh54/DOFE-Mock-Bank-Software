@@ -17,6 +17,8 @@
 
 int main()
 {
+    
+    // bug - >      std::cout << validateDateAndTime("03/20/2022 07:13:4");
     mainMenu();
 }
 

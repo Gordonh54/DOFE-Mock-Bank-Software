@@ -5,5 +5,8 @@ std::string giveDateAndTime();
 
 std::string addLeadingZero(int num);
 
+bool validateDateAndTime(std::string dateAndTimeString);
+
+bool validateTime(std::string timeString);
 #endif
 
